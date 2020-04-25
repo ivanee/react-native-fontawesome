@@ -64,15 +64,6 @@ function normalizeIconArgs(icon) {
     };
   }
 
-  if (Array.isArray(icon) && icon.length === 4) {
-    return {
-      prefix: icon[0],
-      iconName: icon[1],
-      primary:icon[2],
-      secondary:icon[3]
-    };
-  }
-
   if (typeof icon === 'string') {
     return {
       prefix: 'fas',
@@ -87,8 +78,7 @@ function FontAwesomeIcon(props) {
       maskArgs = props.mask,
       height = props.height,
       width = props.width,
-      size = props.size,
-      classes = props.classes;
+      size = props.size;
   var style = _reactNative.StyleSheet.flatten(props.style);
 
   var iconLookup = normalizeIconArgs(iconArgs);
@@ -108,6 +98,10 @@ function FontAwesomeIcon(props) {
   // or resolved in other ways, to avoid ambiguity as to which inputs cause which outputs in the underlying rendering process.
   // In other words, we don't want color (for example) to be specified via two different inputs.
 
+  iconLookup.duotoneFillNative = {
+    primary: props.color || style.color || DEFAULT_COLOR,
+    secondary: props.secondaryColor || props.color || style.color || DEFAULT_COLOR
+  }
   var styleColor = style.color,
       modifiedStyle = _objectWithoutProperties(style, ["color"]);
 
