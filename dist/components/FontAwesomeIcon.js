@@ -64,6 +64,15 @@ function normalizeIconArgs(icon) {
     };
   }
 
+  if (Array.isArray(icon) && icon.length === 4) {
+    return {
+      prefix: icon[0],
+      iconName: icon[1],
+      primary:icon[2],
+      secondary:icon[3]
+    };
+  }
+
   if (typeof icon === 'string') {
     return {
       prefix: 'fas',
@@ -73,17 +82,19 @@ function normalizeIconArgs(icon) {
 }
 
 function FontAwesomeIcon(props) {
+  // edited:
   var iconArgs = props.icon,
       maskArgs = props.mask,
       height = props.height,
       width = props.width,
-      size = props.size;
-
+      size = props.size,
+      classes = props.classes;
   var style = _reactNative.StyleSheet.flatten(props.style);
 
   var iconLookup = normalizeIconArgs(iconArgs);
   var transform = objectWithKey('transform', typeof props.transform === 'string' ? _fontawesomeSvgCore.parse.transform(props.transform) : props.transform);
   var mask = objectWithKey('mask', normalizeIconArgs(maskArgs));
+  // edited:
   var renderedIcon = (0, _fontawesomeSvgCore.icon)(iconLookup, _objectSpread({}, transform, {}, mask));
 
   if (!renderedIcon) {
