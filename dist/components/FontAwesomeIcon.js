@@ -82,6 +82,10 @@ function FontAwesomeIcon(props) {
   var style = _reactNative.StyleSheet.flatten(props.style);
 
   var iconLookup = normalizeIconArgs(iconArgs);
+  iconLookup.duotoneFillNative = {
+    primary: props.color || style.color || DEFAULT_COLOR,
+    secondary: props.secondaryColor || props.color || style.color || DEFAULT_COLOR
+  }
   var transform = objectWithKey('transform', typeof props.transform === 'string' ? _fontawesomeSvgCore.parse.transform(props.transform) : props.transform);
   var mask = objectWithKey('mask', normalizeIconArgs(maskArgs));
   // edited:
@@ -98,10 +102,7 @@ function FontAwesomeIcon(props) {
   // or resolved in other ways, to avoid ambiguity as to which inputs cause which outputs in the underlying rendering process.
   // In other words, we don't want color (for example) to be specified via two different inputs.
 
-  iconLookup.duotoneFillNative = {
-    primary: props.color || style.color || DEFAULT_COLOR,
-    secondary: props.secondaryColor || props.color || style.color || DEFAULT_COLOR
-  }
+
   var styleColor = style.color,
       modifiedStyle = _objectWithoutProperties(style, ["color"]);
 
